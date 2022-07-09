@@ -1,0 +1,10 @@
+CONST
+  m = 7,
+  n = 85;
+#flgmsdglsm .,,sdf
+VAR
+  x, y, z, q, r;
+PROCEDURE multiply;
+VAR a, b;
+if x==2  or x==3:
+ print("Hola mundo")
