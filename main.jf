@@ -1,10 +1,15 @@
-CONST
-  m = 7,
-  n = 85;
-#flgmsdglsm .,,sdf
-VAR
-  x, y, z, q, r;
-PROCEDURE multiply;
-VAR a, b;
-if x==2  or x==3:
- print("Hola mundo")
+print("Hola mundo");
+
+a = 5;
+
+b = 25;
+
+IF(a==b){print("Son iguales");}
+
+ELSE{print("No son iguales");}
+
+m=10*10;
+n=100;
+
+IF(m==n){print("iguales");}
+ELSE{print("diferentes");}
