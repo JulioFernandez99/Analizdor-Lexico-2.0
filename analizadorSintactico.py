@@ -1,45 +1,46 @@
 from AnalizadorLexico import tokens, analizador
 
-from sys import stdin
+els = None
 file = open('main.jf')
 a = file.read()
 program = a.split("\n")
 
-
 # Prioridad de los tokens
 procedence = (
-    ('right','ASIGNACION'),
-    ('right','IGUAL'),
-    ('left','MAYORQUE','MANORQUE'),
-    ('left','SUMA', 'RESTA'),
-    ('left','MULTIPLICACION','DIVISION'),
-    ('left','PARENTESIS_A','PARENTESIS_C'),
-    ('left','LLAVE_A','LLAVE_C'),
+    ('right', 'ASIGNACION'),
+    ('right', 'IGUAL'),
+    ('left', 'MAYORQUE', 'MANORQUE'),
+    ('left', 'SUMA', 'RESTA'),
+    ('left', 'MULTIPLICACION', 'DIVISION'),
+    ('left', 'PARENTESIS_A', 'PARENTESIS_C'),
+    ('left', 'LLAVE_A', 'LLAVE_C'),
 )
 
 nombres = {}
 
 
+# produccion_nombre(t)
 def p_init(t):
-    'init : instrucciones'
+    '''init : instrucciones'''
     t[0] = t[1]
 
 
 def p_instrucciones_lista(t):
-    'instrucciones : instrucciones instruccion'
+    '''instrucciones : instrucciones instruccion'''
     t[1].append(t[2])
     t[0] = t[1]
 
 
 def p_instrucciones_instruccion(t):
-    'instrucciones : instruccion'
-    t[0] =[t[1]]
+    '''instrucciones : instruccion'''
+    t[0] = [t[1]]
 
 
 def p_instruccion(t):
     ''' instruccion : imprimir_instr
                     | asignacion_instr
                     | if_instr
+                    | else_instr
                     | while_instr
     '''
     t[0] = t[1]
@@ -47,9 +48,16 @@ def p_instruccion(t):
 
 def p_if(t):
     '''if_instr : IF PARENTESIS_A expresion_logica PARENTESIS_C LLAVE_A statement LLAVE_C'''
-    print(t[3])
+    global els
+    els = t[3]
     if (t[3]):
         t[0] = t[6]
+
+
+def p_else(t):
+    '''else_instr : ELSE LLAVE_A statement LLAVE_C'''
+    if els != True:
+        t[0] = t[3]
 
 
 def p_statement(t):
@@ -58,7 +66,6 @@ def p_statement(t):
                     | expresion
                     | while_instr '''
     t[0] = t[1]
-    print(t[0])
 
 
 def p_while(t):
@@ -71,6 +78,7 @@ def p_while(t):
 def p_asignacion(t):
     'asignacion_instr : ID ASIGNACION expresion PUNTOCOMA'
     nombres[t[1]] = t[3]
+    # print(nombres)
 
 
 def p_asignacion_tipo(t):
@@ -190,7 +198,9 @@ def p_error(t):
         resultado = "Error sintactico {}".format(t)
     resultado_gramatica.append(resultado)
 
+
 import ply.yacc as yacc
+
 parser = yacc.yacc()
 
 resultado_gramatica = []
@@ -208,4 +218,9 @@ def prueba(data):
 
 
 for line in program:
-    print(prueba(line))
+    try:
+        dato = eval(prueba(line)[0])[0]
+        if dato is not None:
+            print(dato)
+    except:
+        pass
