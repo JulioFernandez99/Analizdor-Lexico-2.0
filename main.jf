@@ -13,3 +13,4 @@ n=100;
 
 IF(m==n){print("iguales");}
 ELSE{print("diferentes");}
+
