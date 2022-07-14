@@ -5,15 +5,14 @@
 
 
 # Como ejecutarlo
-
 Primera forma:
 - Descargar el repo
 - Abrir el archivo main.jf
 - Escribir su codigo en el archivo main.jf
 
 Segunda forma:
--Descargar el repo
--Accedeer a la carpeta llamada interfaz
--Ejecutar el archivo interfaz.py 
--Escribir el codigo el text gris
+- Descargar el repo
+- Accedeer a la carpeta llamada interfaz
+- Ejecutar el archivo interfaz.py 
+- Escribir el codigo el text gris
 
