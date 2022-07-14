@@ -1,8 +1,8 @@
 import ply.lex as lex
 
-file = open('main.jf')
+'''file = open('main.jf')
 a = file.read()
-program = a.split("\n")
+program = a.split("\n")'''
 
 tokens = [
     'ID',
@@ -114,9 +114,6 @@ t_NOT=r'not'
 
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
-    #if t.value.upper() in reservadas:
-       # t.value = t.value.upper()
-        #t.type = t.value
     t.type=reservadas.get(t.value.lower(),'ID')
     return t
 
@@ -166,24 +163,24 @@ def t_DECIMAL(t):
 a = []
 
 
-#def analisis(cadena):
-#    analizador = lex.lex()
- #   analizador.input(cadena)
-#    a.clear()
- #   while True:
- #       tok = analizador.token()
-#        if not tok: break
-#        a.append(str(tok))
-#    return a
+def analisis(cadena):
+    analizador = lex.lex()
+    analizador.input(cadena)
+    a.clear()
+    while True:
+        tok = analizador.token()
+        if not tok: break
+        a.append(str(tok))
+    return a
 
-
-#contador = 1
-#for line in program:
-   # data = analisis(line)
-   # print(f"-------------------Linea#{contador}-------------------")
-    #for dato in data:
-  #      print(dato)
-  #  contador += 1
-
+def mostrarLex(file):
+    program = file.split("\n")
+    contador = 1
+    for line in program :
+            data = analisis(line)
+            print(f"-------------------Linea#{contador}-------------------")
+            for dato in data:
+                print(dato)
+            contador += 1
 
 analizador=lex.lex()
