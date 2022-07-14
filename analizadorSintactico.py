@@ -13,7 +13,7 @@ procedence = (
     ('left', 'SUMA', 'RESTA'),
     ('left', 'MULTIPLICACION', 'DIVISION'),
     ('left', 'PARENTESIS_A', 'PARENTESIS_C'),
-    ('left', 'LLAVE_A', 'LLAVE_C'),
+    ('left', 'LLAVE_A', 'LLAVE_C'), #mayor prioridad
 )
 
 nombres = {}
@@ -43,7 +43,9 @@ def p_instruccion(t):
                     | else_instr
                     | while_instr
     '''
+
     t[0] = t[1]
+
 
 
 def p_if(t):
@@ -58,6 +60,7 @@ def p_else(t):
     '''else_instr : ELSE LLAVE_A statement LLAVE_C'''
     if els != True:
         t[0] = t[3]
+        print(t[3])
 
 
 def p_statement(t):
@@ -92,6 +95,7 @@ def p_asignacion_tipo(t):
 def p_expresion_id(t):
     ''' expresion : ID '''
     t[0] = nombres[t[1]]
+
 
 
 # Funciones del lenguaje
@@ -217,10 +221,21 @@ def prueba(data):
     return resultado_gramatica
 
 
-for line in program:
+def mostrarSintc(file):
+    program = file.split("\n")
+    for line in program:
+        try:
+            dato = eval(prueba(line)[0])[0]
+            if dato is not None:
+                print(dato)
+        except:
+            pass
+
+#prueba
+'''for line in program:
     try:
         dato = eval(prueba(line)[0])[0]
         if dato is not None:
             print(dato)
     except:
-        pass
+        pass'''
